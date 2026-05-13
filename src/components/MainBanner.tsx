@@ -1,45 +1,25 @@
-import { useEffect, useState } from "react";
-import { usePrefersReducedMotion } from "../hooks/usePrefersReducedMotion";
-
 const base = import.meta.env.BASE_URL;
 
-/** 기존 메인 히어로 보존본 + 테마별 신규 배너(WebP) */
-const SLIDE_SRC = [
-  `${base}media/banner-legacy-hero.webp`,
-  `${base}media/banner-rebar.webp`,
-  `${base}media/banner-apartments.webp`,
-  `${base}media/banner-warehouse.webp`,
-  `${base}media/banner-remodel.webp`,
-] as const;
+/** 원본 해상도에 맞춘 힌트(16:9). CSS `object-fit: cover`로 뷰포트에 맞게 표시 */
+const VIDEO_SRC = `${base}media/bnt1.mp4`;
 
 export function MainBanner() {
-  const reducedMotion = usePrefersReducedMotion();
-  const [index, setIndex] = useState(0);
-
-  useEffect(() => {
-    if (reducedMotion || SLIDE_SRC.length <= 1) return;
-    const id = window.setInterval(() => {
-      setIndex((i) => (i + 1) % SLIDE_SRC.length);
-    }, 5500);
-    return () => window.clearInterval(id);
-  }, [reducedMotion]);
-
   return (
-    <section className="main-banner" aria-label="메인 비주얼 영역">
+    <section className="main-banner home-scroll-pane" aria-label="메인 비주얼 영역">
       <div className="main-banner__viewport">
-        {SLIDE_SRC.map((src, i) => (
-          <img
-            key={src}
-            className={`main-banner__slide${i === index ? " is-active" : ""}`}
-            src={src}
-            alt=""
-            width={1920}
-            height={1080}
-            decoding={i === 0 ? "sync" : "async"}
-            loading={i === 0 ? "eager" : "lazy"}
-            fetchPriority={i === 0 ? "high" : "low"}
-          />
-        ))}
+        <video
+          className="main-banner__slide is-active"
+          src={VIDEO_SRC}
+          width={3840}
+          height={2160}
+          muted
+          loop
+          playsInline
+          autoPlay
+          preload="auto"
+          aria-hidden="true"
+          tabIndex={-1}
+        />
       </div>
     </section>
   );

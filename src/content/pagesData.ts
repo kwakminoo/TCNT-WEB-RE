@@ -1,58 +1,85 @@
 import type { PageContent } from "./types";
+import { COMPANY_HISTORY_TIMELINE } from "./company/historyData";
 
 export const pagesByPath: Record<string, PageContent> = {
   "/about/greeting": {
     title: "인사말",
-    lead: "태일씨앤티 홈페이지를 방문해 주신 여러분께 진심으로 감사드립니다.",
+    lead: "태일씨앤티 홈페이지를 방문해 주신 고객 여러분 감사드립니다.",
     blocks: [
       {
         paragraphs: [
-          "저희 (주)태일씨앤티는 안전·품질·신뢰를 경영의 중심에 두고, 발주처와의 상생을 바탕으로 현장 중심의 실행력을 강화해 왔습니다.",
-          "앞으로도 투명한 소통과 책임 시공으로 고객 가치를 높이고, 구성원이 안심하고 일할 수 있는 조직 문화를 만들어 가겠습니다.",
+          "1994년 창립된 당사는 2013년 지인개발㈜에서 ㈜태일씨앤티로 사명을 변경하여, 철근·콘크리트 전문건설업계의 차별화된 서비스를 제공하기 위해 새로운 도전을 이어오고 있습니다. 책임완수, 근면성실, 인화단결의 사훈을 바탕으로 기본과 원칙에 충실한 투명한 경영 구조를 이루는 것과 동시에 철저한 품질안전 관리로 고객감동을 실현하고, 상호존중 및 소통을 바탕으로 협력사와 상생하고자 합니다.",
+          "태일씨앤티는 안전·품질 역량 강화, 자재기술 및 관리 혁신 등을 통하여 최상의 파트너십을 형성하여 국내외 건설산업발전에 기여하는 전문기업의 입지를 공고히 할 것입니다. 나아가 역동적인 사업가 정신을 바탕으로 철근가공, 건축소방, 투자, 무역에 이르기까지 다양한 사업을 발굴하여 장기 지속적 성장을 강화해 나가겠습니다.",
+          "임직원 교육 프로그램, 투명한 성과관리 등 전략적 인적자원관리를 통해 책임과 성장, 정직과 소통, 더 나은 방식, 공동체 의식이라는 하나로 단결된 태일인 DNA를 발휘할 수 있도록 노력하고 있습니다. 고인 물을 바라보지 않고, 기꺼이 그 위를 넘어 성장할 것이며, 올바른 가치 창출을 위해 혁신을 거듭하는 태일씨앤티를 따뜻한 애정과 관심으로 지켜봐 주시기 바랍니다.",
         ],
+      },
+      {
+        kind: "media",
+        src: "media/company/greeting.jpg",
+        alt: "인사말 이미지",
+        caption: "회사 소개",
+      },
+      {
+        kind: "media",
+        src: "media/company/signature.jpg",
+        alt: "대표이사 서명",
+        caption: "대표이사",
       },
     ],
   },
   "/about/philosophy": {
     title: "경영이념",
-    lead: "Trust & Professional — 신뢰와 전문성으로 내일의 인프라를 완성합니다.",
+    lead: "시대변화에 적응하여 누구보다 앞선 기술로 전문건설산업의 선도적 역할을 해 나갈 것입니다.",
     blocks: [
       {
-        heading: "핵심 가치",
-        bullets: [
-          "안전 최우선: 모든 의사결정의 1순위는 현장 안전입니다.",
-          "품질 준수: 표준과 절차를 존중하고, 검증 가능한 시공을 지향합니다.",
-          "상생 파트너십: 발주처·협력사·지역사회와의 신뢰 관계를 소중히 합니다.",
+        heading: "비전",
+        paragraphs: [
+          "시대변화에 적응하여 누구보다 앞선 기술로 전문건설산업의 선도적 역할을 해 나갈 것입니다.",
         ],
+      },
+      {
+        heading: "핵심가치",
+        bullets: [
+          "① 고객감동 및 철저한 품질관리",
+          "② 무재해 완벽시공 철저한 사후관리",
+          "③ 지속적 기술개발과 원가절감",
+          "고객감동 및 철저한 품질관리",
+          "무재해와 완벽시공 및 철저한 사후관리",
+          "지속적인 기술개발 및 원가 절감 실행",
+        ],
+      },
+      {
+        heading: "슬로건",
+        bullets: [
+          "① 하나된(One) — 뭉치면 강하다! 하나된 모습으로 나아갈 것입니다.",
+          "② 혁신적인(Innovative) — 우리는 창의적으로 발전해 나갈 것입니다.",
+          "③ 백년대계(Forever) — 미래지향적인 계획을 실현할 것입니다.",
+        ],
+      },
+      {
+        kind: "media",
+        src: "media/company/philosophy.png",
+        alt: "경영이념 다이어그램",
       },
     ],
   },
   "/about/history": {
     title: "회사연혁",
     lead: "준비와 실행의 누적으로 쌓아 온 발자취입니다.",
-    blocks: [
-      {
-        paragraphs: [
-          "창립 이후 준공 중심의 실행 조직을 갖추고, 주요 발주처와의 반복 거래를 통해 시공 역량을 인정받아 왔습니다.",
-          "본 페이지는 정적 데모 구성으로, 상세 타임라인은 운영 시 CMS 또는 PDF 연계로 확장할 수 있습니다.",
-        ],
-      },
-    ],
+    blocks: [COMPANY_HISTORY_TIMELINE],
   },
   "/about/organization": {
     title: "기구조직도",
-    lead: "현장 중심의 슬림한 본부 조직과 실행 Cell을 운영합니다.",
+    lead: "본사 조직 구조입니다.",
     blocks: [
       {
-        bullets: [
-          "경영지원·재무·인사",
-          "공사·품질·안전",
-          "구매·원가·협력사 관리",
-        ],
+        kind: "media",
+        src: "media/company/organization.jpg",
+        alt: "태일씨앤티 기구조직도",
       },
       {
         paragraphs: [
-          "실제 조직도 이미지(PDF)는 운영 단계에서 최신본으로 교체할 수 있도록 자리를 마련해 두었습니다.",
+          "상세 조직·직제는 운영 정책에 따라 갱신될 수 있으며, 최신 조직도는 담당 부서를 통해 확인하실 수 있습니다.",
         ],
       },
     ],
@@ -60,133 +87,29 @@ export const pagesByPath: Record<string, PageContent> = {
   "/about/licenses": {
     title: "업·면허/인증",
     lead: "법정 요건과 고객 요구 수준을 동시에 충족합니다.",
-    blocks: [
-      {
-        paragraphs: [
-          "건설업 등록·면허, 품질·안전 관련 인증은 정기적으로 갱신·점검하며, 현장별 이행 점검표를 통해 실효성을 관리합니다.",
-        ],
-      },
-    ],
+    blocks: [],
   },
   "/about/clients": {
     title: "주거래 시공사",
     lead: "국내 주요 발주처와의 신뢰 관계를 지속적으로 확대합니다.",
-    blocks: [
-      {
-        paragraphs: [
-          "대형 건설사·종합 엔지니어링사·발주 공공기관 등과 협력하며, 공정·품질 기준을 사전 합의하여 리스크를 낮춥니다.",
-        ],
-      },
-    ],
+    blocks: [],
   },
   "/about/location": {
-    title: "찾아오는길",
-    lead: "(주)태일씨앤티 본사",
+    title: "찾아오시는길",
+    lead: "서울시 금천구 가산디지털2로 101(가산동 549-1) 한라원앤원타워 B동 17층 1701호",
     blocks: [
       {
-        paragraphs: [
-          "주소: 서울시 금천구 가산디지털2로 101(가산동 549-1) 한라원앤원타워 B동 17층 1701호",
-          "TEL: 070-8897-0761 / FAX: 02-2101-2141",
-          "대중교통 및 주차 안내는 방문 전 담당자에게 문의해 주시면 상세히 안내드립니다.",
-        ],
+        paragraphs: ["TEL 070-8897-0761", "FAX 02-2101-2141"],
       },
-    ],
-  },
-  "/business/orders": {
-    title: "공사수주 현황",
-    lead: "최근 주요 수주 및 진행 프로젝트의 요약입니다.",
-    blocks: [
       {
-        paragraphs: [
-          "복합·민간·리모델링 등 다양한 유형의 현장에서 공정 계획과 품질 검측 체계를 표준화하여 반복 적용합니다.",
-        ],
-      },
-    ],
-  },
-  "/business/housing": {
-    title: "주택",
-    lead: "주택·주거 단지 분야 시공 사례와 역량을 소개합니다.",
-    blocks: [
-      {
-        paragraphs: [
-          "정적 데모 페이지입니다. 운영 시 프로젝트별 갤러리·개요를 연결할 수 있습니다.",
-        ],
-      },
-    ],
-  },
-  "/business/office": {
-    title: "업무시설",
-    lead: "업무·오피스 시설 시공 경험을 정리합니다.",
-    blocks: [
-      {
-        paragraphs: [
-          "정적 데모 페이지입니다. 운영 시 대표 프로젝트를 카드 형태로 노출할 수 있습니다.",
-        ],
-      },
-    ],
-  },
-  "/business/education-medical": {
-    title: "교육/의료",
-    lead: "교육·의료 시설 등 특수 용도 건축 시공을 안내합니다.",
-    blocks: [
-      {
-        paragraphs: [
-          "정적 데모 페이지입니다. 운영 시 인허가·전문 공종별 레퍼런스를 보강할 수 있습니다.",
-        ],
-      },
-    ],
-  },
-  "/business/plant": {
-    title: "플랜트",
-    lead: "플랜트·산업시설 관련 시공 역량을 소개합니다.",
-    blocks: [
-      {
-        paragraphs: [
-          "정적 데모 페이지입니다. 운영 시 공정 유형별 포트폴리오를 연결할 수 있습니다.",
-        ],
-      },
-    ],
-  },
-  "/business/skyscraper": {
-    title: "초고층",
-    lead: "초고층·복합 초고층 프로젝트 대응 역량을 안내합니다.",
-    blocks: [
-      {
-        paragraphs: [
-          "정적 데모 페이지입니다. 운영 시 높이·구조 난이도 중심 사례를 정리할 수 있습니다.",
-        ],
-      },
-    ],
-  },
-  "/business/retail": {
-    title: "판매시설",
-    lead: "판매·상업 시설 시공 사례를 소개합니다.",
-    blocks: [
-      {
-        paragraphs: [
-          "정적 데모 페이지입니다. 운영 시 브랜드·리테일 특성을 반영한 콘텐츠로 확장할 수 있습니다.",
-        ],
-      },
-    ],
-  },
-  "/business/other": {
-    title: "기타",
-    lead: "기타 유형 프로젝트를 안내합니다.",
-    blocks: [
-      {
-        paragraphs: [
-          "정적 데모 페이지입니다. 운영 시 분류 기준에 맞춰 목록을 구성할 수 있습니다.",
-        ],
-      },
-    ],
-  },
-  "/business/project-map": {
-    title: "Project Map",
-    lead: "주요 프로젝트 위치를 지도 기반으로 안내합니다.",
-    blocks: [
-      {
-        paragraphs: [
-          "정적 데모 페이지입니다. 운영 시 지도 API·핀 데이터를 연동할 수 있습니다.",
+        kind: "cta",
+        heading: "지도",
+        links: [
+          {
+            label: "카카오맵에서 크게 보기",
+            href: "http://kko.to/lrpfcrc0H",
+            external: true,
+          },
         ],
       },
     ],
@@ -226,15 +149,51 @@ export const pagesByPath: Record<string, PageContent> = {
       },
     ],
   },
-  "/innovation/vision": {
-    title: "기술혁신 비전",
-    lead: "데이터 기반 현장 관리와 공정 혁신으로 생산성과 안전을 동시에 높입니다.",
+  "/business/project-map": {
+    title: "프로젝트 맵",
+    lead: "주요 프로젝트 위치를 지도 기반으로 안내합니다.",
     blocks: [
       {
+        paragraphs: [
+          "전용 지도 페이지에서 시·도별 프로젝트 위치를 확인할 수 있습니다.",
+        ],
+      },
+    ],
+  },
+  "/innovation/vision": {
+    title: "기술혁신 비전",
+    lead: "(주)태일씨앤티는 미래지향적 기술 혁신을 통하여 기술경쟁력을 확보하여 산업현장의 새로운 방향을 개척하는 개척자로 자리매김할 것입니다.",
+    blocks: [
+      {
+        paragraphs: [
+          "(주)태일씨앤티는 새롭게 변화하는 미래시장에 신속히 대응할 수 있도록 건설 분야를 중심으로 신기술 확보를 위한 연구개발과제를 수행하고 있습니다. 또한 다양한 분야로의 사업영역 확장을 위하여 계열사 (주)태경이노베이션을 설립하고 협력사와의 활발한 교류 및 신기술·신사업 발굴, 투자를 진행하고 있습니다.",
+        ],
+      },
+      {
+        heading: "VISION — Challenge Innovation",
         bullets: [
-          "현장 정보의 표준 수집·가시화",
-          "반복 공정의 모듈화·표준화",
-          "품질·안전 지표의 주기적 리뷰",
+          "기술경쟁력 확보",
+          "품질 만족·고객 만족",
+          "사업영역 다각화",
+          "시스템 고도화",
+        ],
+      },
+      {
+        heading: "미래지향적 기술 개발을 통한 기술 경쟁력 확보",
+        paragraphs: [
+          "시장의 흐름과 미래전망을 바탕으로 끊임없는 건설기술상품 개발을 통하여 건설현장의 새로운 방향을 개척하고 기술 경쟁력을 확보하기 위하여 최선을 다하고 있습니다. 미래지향적 기술로 보다 나은 고객만족을 실현하도록 하겠습니다.",
+        ],
+      },
+      {
+        heading: "시스템 고도화 및 계열사 운영을 통한 효율적인 업무 수행과 품질 만족 기여",
+        paragraphs: [
+          "기업 시스템 고도화를 지속적으로 진행하고 계열사 운영을 통한 전문적 업무 수행 조직 구성으로 보다 효율적인 업무 수행과 품질 만족에 기여하고 있습니다.",
+        ],
+      },
+      {
+        heading: "미래 유망기술 확보를 통한 신규 사업분야 개척",
+        paragraphs: [
+          "미래 유망사업에 대한 다양한 분야로의 사업영역 확장을 위하여 계열사 (주)태경이노베이션을 설립하고 협력사와의 활발한 정보 교류와 신기술·신사업에 대한 발굴, 투자 사업을 진행하고 있습니다.",
         ],
       },
     ],
@@ -242,32 +201,27 @@ export const pagesByPath: Record<string, PageContent> = {
   "/innovation/news": {
     title: "기술혁신 News",
     lead: "기술 과제와 현장 적용 사례를 정리해 공유합니다.",
-    blocks: [
-      {
-        paragraphs: [
-          "운영 단계에서는 뉴스 카드 형태의 목록과 상세 페이지를 주기적으로 갱신할 수 있습니다.",
-        ],
-      },
-    ],
+    blocks: [],
   },
   "/pr/youtube": {
     title: "유튜브",
-    lead: "태일씨앤티 공식 영상 콘텐츠",
+    lead: "태일씨앤티 홍보·소개 영상",
     blocks: [
       {
-        paragraphs: [
-          "정적 데모 페이지입니다. 운영 시 공식 유튜브 채널 URL로 연결하거나 채널 내 영상을 임베드할 수 있습니다.",
-        ],
+        kind: "video",
+        src: "media/video/promo-2025.mp4",
+        title: "2025 태일씨앤티 홍보영상",
+        description: "자동재생 없음 · 재생 시 소리가 나올 수 있습니다.",
       },
-    ],
-  },
-  "/pr/news": {
-    title: "News",
-    lead: "홍보·수주·행사 등 최신 소식입니다.",
-    blocks: [
+      {
+        kind: "video",
+        src: "media/video/company-intro.mp4",
+        title: "회사 소개 영상(최종본)",
+        description: "배포 폴더 원본 파일명 기준 복사본입니다.",
+      },
       {
         paragraphs: [
-          "메인 화면의 뉴스 목록과 연동되며, 상세 본문은 운영 시 별도 콘텐츠로 확장할 수 있습니다.",
+          "공식 유튜브 채널이 별도로 운영되는 경우, 운영 URL을 본문에 링크로 추가할 수 있습니다.",
         ],
       },
     ],
@@ -278,7 +232,7 @@ export const pagesByPath: Record<string, PageContent> = {
     blocks: [
       {
         paragraphs: [
-          "청소년 장학·지역 봉사 등 파트너십 활동을 지속적으로 확대해 나가겠습니다.",
+          "청소년 장학·지역 봉사 등 파트너십 활동을 지속적으로 확대해 나가겠습니다. 최근 보도 사례는 홍보센터 News에서 확인할 수 있습니다.",
         ],
       },
     ],
@@ -300,7 +254,7 @@ export const pagesByPath: Record<string, PageContent> = {
     blocks: [
       {
         paragraphs: [
-          "정적 데모 페이지입니다. 운영 시 직군·직무별 상세 설명과 조직도를 연결할 수 있습니다.",
+          "현장 중심 직군(공무·품질·안전·구매 등)과 본부 지원 직군으로 구성되며, 직무별 상세 JD는 채용공고에 안내됩니다.",
         ],
       },
     ],
@@ -309,6 +263,40 @@ export const pagesByPath: Record<string, PageContent> = {
     title: "인사제도",
     lead: "성과와 성장을 존중하는 인사 원칙",
     blocks: [
+      {
+        paragraphs: [
+          "아래 이미지는 사내 배포 자료를 기반으로 한 시각 자료이며, 세부 규정 문구는 가안으로 정리된 안내입니다.",
+        ],
+      },
+      {
+        heading: "인재상 (가안 텍스트)",
+        paragraphs: [
+          "현장을 책임지는 전문가, 협력과 준법을 겸비한 구성원을 지향합니다.",
+        ],
+      },
+      {
+        kind: "media",
+        src: "media/career/talent-model.jpg",
+        alt: "인재상 안내 이미지",
+      },
+      {
+        heading: "보상제도 (가안 텍스트)",
+        paragraphs: ["성과·역할 기반 보상과 복리 일부는 내부 규정에 따릅니다."],
+      },
+      {
+        kind: "media",
+        src: "media/career/compensation.jpg",
+        alt: "보상제도 안내 이미지",
+      },
+      {
+        heading: "평가제도 (가안 텍스트)",
+        paragraphs: ["다면평가·목표관리 등 절차는 인사 규정에 따릅니다."],
+      },
+      {
+        kind: "media",
+        src: "media/career/evaluation.jpg",
+        alt: "평가제도 안내 이미지",
+      },
       {
         bullets: [
           "역할 중심의 평가와 피드백",
@@ -347,7 +335,7 @@ export const pagesByPath: Record<string, PageContent> = {
     blocks: [
       {
         paragraphs: [
-          "정적 데모 사이트이므로 실제 공고 링크는 운영 시 외부 ATS 또는 게시판 URL로 연결합니다.",
+          "실제 채용은 외부 채용 플랫폼 또는 회사 지정 채널을 통해 공지됩니다. 운영 담당자에게 문의해 주세요.",
         ],
       },
     ],
@@ -375,10 +363,22 @@ export const pagesByPath: Record<string, PageContent> = {
     lead: "환경·사회·지배구조 관점의 균형 있는 경영을 지향합니다.",
     blocks: [
       {
+        kind: "media",
+        src: "media/esg/esg-overview.png",
+        alt: "ESG 경영 개요",
+        heading: "ESG 개요",
+      },
+      {
         heading: "Environment",
         paragraphs: [
           "현장 폐기물 분리배출·먼지 저감 장비 활용 등 환경 부담을 줄이기 위한 실행 과제를 운영합니다.",
         ],
+      },
+      {
+        kind: "media",
+        src: "media/esg/environment.jpg",
+        alt: "환경경영 안내 이미지",
+        caption: "환경경영 활동(가안 설명과 함께 게시)",
       },
       {
         heading: "Social",
@@ -387,10 +387,15 @@ export const pagesByPath: Record<string, PageContent> = {
         ],
       },
       {
-        heading: "Governance",
+        heading: "Governance · 윤리경영",
         paragraphs: [
           "투명한 의사결정과 준법 경영으로 이해관계자의 신뢰를 확보합니다.",
         ],
+      },
+      {
+        kind: "media",
+        src: "media/esg/ethics.png",
+        alt: "윤리경영 안내 이미지",
       },
     ],
   },

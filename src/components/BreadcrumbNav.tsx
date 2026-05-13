@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import { pagesByPath } from "../content/pagesData";
+import { breadcrumbLeafTitle, standalonePageTitles } from "../content/breadcrumbResolve";
 import { findParentGroup } from "../content/navData";
 
 export function BreadcrumbNav() {
@@ -23,6 +24,8 @@ export function BreadcrumbNav() {
 
   const page = pagesByPath[pathname];
   const group = findParentGroup(pathname);
+  const leafFromDynamic = breadcrumbLeafTitle(pathname);
+  const leafStandalone = standalonePageTitles[pathname];
 
   const items: { label: string; path?: string; current?: boolean }[] = [
     { label: "홈", path: "/" },
@@ -31,12 +34,16 @@ export function BreadcrumbNav() {
   if (group) {
     items.push({
       label: group.label,
-      path: group.children[0]?.path,
+      path: group.children[0]?.path.split("?")[0],
     });
   }
 
   if (page) {
     items.push({ label: page.title, current: true });
+  } else if (leafFromDynamic) {
+    items.push({ label: leafFromDynamic, current: true });
+  } else if (leafStandalone) {
+    items.push({ label: leafStandalone, current: true });
   } else {
     items.push({ label: pathname, current: true });
   }

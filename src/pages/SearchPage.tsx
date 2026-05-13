@@ -2,6 +2,7 @@ import { useMemo } from "react";
 import type { FormEvent } from "react";
 import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import { BreadcrumbNav } from "../components/BreadcrumbNav";
+import { SubpageShell } from "../components/SubpageShell";
 import { searchPages } from "../content/searchIndex";
 
 export function SearchPage() {
@@ -18,47 +19,32 @@ export function SearchPage() {
   }
 
   return (
-    <>
-      <section className="page-hero" aria-labelledby="page-title">
-        <div className="container">
+    <SubpageShell
+      intro={
+        <>
           <BreadcrumbNav />
           <h1 id="page-title">검색</h1>
           <p className="lead">메뉴 및 주요 문구에서 키워드를 찾습니다.</p>
-          <form
-            onSubmit={onSubmit}
-            role="search"
-            style={{ marginTop: "1rem", maxWidth: 520 }}
-          >
+          <form onSubmit={onSubmit} role="search" className="subpage-hero-search">
             <label htmlFor="search-page-q" className="sr-only">
               검색어
             </label>
             <input
               id="search-page-q"
               name="q"
+              type="search"
               defaultValue={q}
               placeholder="예: 안전, 채용, ESG"
-              style={{
-                width: "100%",
-                minHeight: 48,
-                padding: "0.5rem 0.75rem",
-                borderRadius: "var(--radius-sm)",
-                border: "1px solid rgba(255,255,255,0.35)",
-                background: "rgba(255,255,255,0.1)",
-                color: "#fff",
-              }}
+              className="subpage-hero-search__input"
             />
-            <button
-              type="submit"
-              className="btn btn-primary"
-              style={{ marginTop: "0.75rem" }}
-            >
+            <button type="submit" className="btn btn-primary subpage-hero-search__submit">
               검색하기
             </button>
           </form>
-        </div>
-      </section>
-      <section className="page-body">
-        <div className="container prose">
+        </>
+      }
+    >
+      <div className="container prose">
           {!q ? (
             <p>검색어를 입력해 주세요.</p>
           ) : results.length === 0 ? (
@@ -67,19 +53,16 @@ export function SearchPage() {
               보세요.
             </p>
           ) : (
-            <ul>
+            <ul className="search-results-list">
               {results.map((r) => (
                 <li key={r.path}>
                   <Link to={r.path}>{r.title}</Link>
-                  <div className="muted" style={{ fontSize: "0.95rem" }}>
-                    {r.path}
-                  </div>
+                  <div className="muted search-results-list__path">{r.path}</div>
                 </li>
               ))}
             </ul>
           )}
-        </div>
-      </section>
-    </>
+      </div>
+    </SubpageShell>
   );
 }
