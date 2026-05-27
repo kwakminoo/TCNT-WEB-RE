@@ -185,6 +185,7 @@ export function HomePage() {
       </section>
 
       <section className="page-body home-project-map home-scroll-pane home-project-map-pane">
+        <p className="home-news-eyebrow home-project-map__eyebrow">PROJECT MAP</p>
         <ProjectMapSection showSectionHeader={false} />
       </section>
 

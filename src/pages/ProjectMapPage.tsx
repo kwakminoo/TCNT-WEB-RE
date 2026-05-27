@@ -1,6 +1,7 @@
 import { NavLink, useLocation } from "react-router-dom";
 import { BreadcrumbNav } from "../components/BreadcrumbNav";
 import { ProjectMapSection } from "../components/ProjectMapSection";
+import { ContentSectionHead } from "../components/page/ContentSectionHead";
 import { SubpageShell } from "../components/SubpageShell";
 import { findParentGroup } from "../content/navData";
 import { pagesByPath } from "../content/pagesData";
@@ -51,6 +52,15 @@ export function ProjectMapPage() {
         ) : undefined
       }
     >
+      <div className="container orders-page__inner">
+        <div className="orders-page__head-wrap">
+          <ContentSectionHead
+            id="project-map-list-heading"
+            title="Project Map"
+            className="orders-page__head"
+          />
+        </div>
+      </div>
       <ProjectMapSection showSectionHeader={false} />
     </SubpageShell>
   );

@@ -180,23 +180,26 @@ function EvaluationSystemDiagram() {
     <div className="hr-eval-diagram">
       <div className="hr-eval-diagram__flow" role="group" aria-label="평가제도 흐름">
         <div className="hr-eval-diagram__tracks">
-          {EVAL_SOURCES.map((label) => (
-            <span key={label} className="hr-eval-diagram__pill hr-eval-diagram__pill--primary">
-              {label}
-            </span>
+          {EVAL_SOURCES.map((label, index) => (
+            <Fragment key={label}>
+              <span className="hr-eval-diagram__pill hr-eval-diagram__pill--primary">{label}</span>
+              {index < EVAL_SOURCES.length - 1 ? (
+                <span className="hr-eval-diagram__plus" aria-hidden>
+                  +
+                </span>
+              ) : null}
+            </Fragment>
           ))}
         </div>
 
-        <div className="hr-eval-diagram__arrow" aria-hidden>
-          <svg width="28" height="72" viewBox="0 0 28 72" fill="none">
+        <div className="hr-eval-diagram__equals" aria-hidden>
+          <svg width="40" height="72" viewBox="0 0 40 72" fill="none">
             <path
-              d="M4 4 20 36 4 68"
+              d="M8 30h24M8 42h24"
               stroke="currentColor"
-              strokeWidth="2.5"
+              strokeWidth="3"
               strokeLinecap="round"
-              strokeLinejoin="round"
             />
-            <circle cx="20" cy="36" r="3" fill="currentColor" />
           </svg>
         </div>
 
