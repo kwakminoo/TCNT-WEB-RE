@@ -7,6 +7,7 @@ declare module "*.svg?raw" {
 
 interface ImportMetaEnv {
   readonly BASE_URL: string;
+  readonly VITE_KAKAO_MAP_APP_KEY?: string;
 }
 
 interface ImportMeta {

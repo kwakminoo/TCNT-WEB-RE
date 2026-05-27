@@ -324,7 +324,6 @@ export function ProjectMapSection({ showSectionHeader = true }: Props) {
     >
       {showSectionHeader ? (
         <header className="project-map__head">
-          <p className="project-map__eyebrow">TAEIL C&amp;T</p>
           <h2 id="project-map-title" className="project-map__title">
             PROJECT MAP
           </h2>
@@ -365,14 +364,15 @@ export function ProjectMapSection({ showSectionHeader = true }: Props) {
             <button
               type="button"
               className="project-map__ctrl-btn project-map__ctrl-btn--icon"
-              aria-label="전국 통합 지도 보기 및 확대·이동 초기화"
-              title="전국 지도(모든 권역 프로젝트)로 전환 · 위치·확대 초기화"
+              aria-label="서울 지도 보기 및 확대·이동 초기화"
+              title="서울 지도(강화된 확대/이동 초기 위치)로 전환 · 위치·확대 초기화"
               onClick={() => {
-                setOverviewMap(true);
+                setOverviewMap(false);
+                setMapRegionId("seoul");
                 setSelectedId(null);
                 setFocusId(null);
                 setHoverId(null);
-                applyPreset("nationwide");
+                applyPreset("metro");
               }}
             >
               ⌂
@@ -444,6 +444,7 @@ export function ProjectMapSection({ showSectionHeader = true }: Props) {
                       markerPy={markerPy}
                       active={item.id === activeId}
                       markerScale={markerScale}
+                      iconTone={showSectionHeader ? "dark" : "light"}
                       onHover={(id) => setHoverId(id)}
                       onLeave={() => setHoverId(null)}
                       onFocus={(id) => setFocusId(id)}
@@ -523,6 +524,7 @@ function MarkerButton({
   markerPy,
   active,
   markerScale,
+  iconTone,
   onHover,
   onLeave,
   onFocus,
@@ -534,6 +536,7 @@ function MarkerButton({
   markerPy: number;
   active: boolean;
   markerScale: number;
+  iconTone: "dark" | "light";
   onHover: (id: string) => void;
   onLeave: () => void;
   onFocus: (id: string) => void;
@@ -558,7 +561,11 @@ function MarkerButton({
         onFocus={() => onFocus(item.id)}
         onClick={() => onSelect(item.id)}
       >
-        <ProjectMapModelIcon kind={item.assetKind} className="project-map__marker-icon" />
+        <ProjectMapModelIcon
+          kind={item.assetKind}
+          className="project-map__marker-icon"
+          tone={iconTone}
+        />
       </button>
     </li>
   );

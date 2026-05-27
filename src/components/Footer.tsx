@@ -3,9 +3,21 @@ import { Link } from "react-router-dom";
 const assetBase = import.meta.env.BASE_URL;
 
 const relatedLinks = [
-  { label: "태일 인트라넷", href: "#", note: "운영 시 내부 URL로 연결" },
-  { label: "태일 NAS", href: "#", note: "운영 시 내부 URL로 연결" },
-  { label: "태일 원격지원", href: "#", note: "운영 시 지원 URL로 연결" },
+  {
+    label: "태일 인트라넷",
+    href: "http://intranet.taeilcnt.co.kr/grp/index.jsp",
+    title: "태일씨앤티 인트라넷 (새 창)",
+  },
+  {
+    label: "태일 NAS",
+    href: "http://mail.taeilcnt.co.kr:5000/#/signin",
+    title: "태일씨앤티 NAS (새 창)",
+  },
+  {
+    label: "태일 원격지원",
+    href: "http://210.126.2.139:8080/",
+    title: "태일씨앤티 PC 원격지원 (새 창)",
+  },
 ];
 
 export function Footer() {
@@ -43,14 +55,27 @@ export function Footer() {
             <Link to="/about/greeting">회사소개</Link>
             <Link to="/legal/privacy">개인정보처리방침</Link>
             <Link to="/legal/email-collection">이메일무단수집거부</Link>
-            <Link to="/site-map">사이트맵</Link>
+            <a
+              href="http://www.taeilcnt.co.kr/home/index.jsp"
+              target="_blank"
+              rel="noopener noreferrer"
+              title="태일씨앤티 홈페이지 (새 창)"
+            >
+              http://www.taeilcnt.co.kr/home/index.jsp
+            </a>
           </div>
         </div>
         <div>
-          <p className="footer-heading">관련사이트</p>
+          <p className="footer-heading">FAMILY SITE</p>
           <div className="footer-related">
             {relatedLinks.map((r) => (
-              <a key={r.label} href={r.href} title={r.note}>
+              <a
+                key={r.label}
+                href={r.href}
+                title={r.title}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
                 {r.label}
               </a>
             ))}

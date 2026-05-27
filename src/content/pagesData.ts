@@ -70,8 +70,11 @@ export const pagesByPath: Record<string, PageContent> = {
   },
   "/about/organization": {
     title: "기구조직도",
-    lead: "본사 조직 구조입니다.",
+
     blocks: [
+      {
+        heading: "조직도",
+      },
       {
         kind: "media",
         src: "media/company/organization.jpg",
@@ -96,29 +99,14 @@ export const pagesByPath: Record<string, PageContent> = {
   },
   "/about/location": {
     title: "찾아오시는길",
-    lead: "서울시 금천구 가산디지털2로 101(가산동 549-1) 한라원앤원타워 B동 17층 1701호",
-    blocks: [
-      {
-        paragraphs: ["TEL 070-8897-0761", "FAX 02-2101-2141"],
-      },
-      {
-        kind: "cta",
-        heading: "지도",
-        links: [
-          {
-            label: "카카오맵에서 크게 보기",
-            href: "http://kko.to/lrpfcrc0H",
-            external: true,
-          },
-        ],
-      },
-    ],
+    blocks: [],
   },
   "/business/capability": {
     title: "건설시공능력",
     lead: "현장 유형별 시공 역량과 인력·장비 동원 체계를 갖추고 있습니다.",
     blocks: [
       {
+        heading: "시공 역량",
         bullets: [
           "구조·마감·설비 간 인터페이스 조정",
           "도심·협소지 대응 교통·안전 통제",
@@ -132,6 +120,7 @@ export const pagesByPath: Record<string, PageContent> = {
     lead: "검증 가능한 품질 프로세스로 고객 요구를 충족합니다.",
     blocks: [
       {
+        heading: "품질관리",
         paragraphs: [
           "공정별 검측 포인트를 사전 정의하고, 이슈 발생 시 신속한 원인 분석과 재발 방지 대책을 병행합니다.",
         ],
@@ -143,6 +132,7 @@ export const pagesByPath: Record<string, PageContent> = {
     lead: "현장 모든 구성원의 생명과 안전을 최우선으로 합니다.",
     blocks: [
       {
+        heading: "안전관리",
         paragraphs: [
           "TBM·위험성 평가·안전 순회를 상시화하고, 협력사 포함 동일 기준의 안전 문화를 지향합니다.",
         ],
@@ -166,7 +156,8 @@ export const pagesByPath: Record<string, PageContent> = {
     blocks: [
       {
         paragraphs: [
-          "(주)태일씨앤티는 새롭게 변화하는 미래시장에 신속히 대응할 수 있도록 건설 분야를 중심으로 신기술 확보를 위한 연구개발과제를 수행하고 있습니다. 또한 다양한 분야로의 사업영역 확장을 위하여 계열사 (주)태경이노베이션을 설립하고 협력사와의 활발한 교류 및 신기술·신사업 발굴, 투자를 진행하고 있습니다.",
+          "(주)태일씨앤티는 새롭게 변화하는 미래시장에 신속히 대응할 수 있도록 건설 분야를 중심으로 신기술 확보를 위한 연구개발과제를 수행하고 있습니다.",
+          "또한 다양한 분야로의 사업영역 확장을 위하여 계열사 (주)태경이노베이션을 설립하고 협력사와의 활발한 교류 및 신기술·신사업 발굴, 투자를 진행하고 있습니다.",
         ],
       },
       {
@@ -179,19 +170,19 @@ export const pagesByPath: Record<string, PageContent> = {
         ],
       },
       {
-        heading: "미래지향적 기술 개발을 통한 기술 경쟁력 확보",
+        heading: "미래지향적 기술 개발을 통한\n기술 경쟁력 확보",
         paragraphs: [
           "시장의 흐름과 미래전망을 바탕으로 끊임없는 건설기술상품 개발을 통하여 건설현장의 새로운 방향을 개척하고 기술 경쟁력을 확보하기 위하여 최선을 다하고 있습니다. 미래지향적 기술로 보다 나은 고객만족을 실현하도록 하겠습니다.",
         ],
       },
       {
-        heading: "시스템 고도화 및 계열사 운영을 통한 효율적인 업무 수행과 품질 만족 기여",
+        heading: "시스템 고도화 및 계열사 운영을 \n통한 효율적인 업무 수행과\n품질 만족 기여",
         paragraphs: [
           "기업 시스템 고도화를 지속적으로 진행하고 계열사 운영을 통한 전문적 업무 수행 조직 구성으로 보다 효율적인 업무 수행과 품질 만족에 기여하고 있습니다.",
         ],
       },
       {
-        heading: "미래 유망기술 확보를 통한 신규 사업분야 개척",
+        heading: "미래 유망기술 확보를 통한\n신규 사업분야 개척",
         paragraphs: [
           "미래 유망사업에 대한 다양한 분야로의 사업영역 확장을 위하여 계열사 (주)태경이노베이션을 설립하고 협력사와의 활발한 정보 교류와 신기술·신사업에 대한 발굴, 투자 사업을 진행하고 있습니다.",
         ],
@@ -206,157 +197,43 @@ export const pagesByPath: Record<string, PageContent> = {
   "/pr/youtube": {
     title: "유튜브",
     lead: "태일씨앤티 홍보·소개 영상",
-    blocks: [
-      {
-        kind: "video",
-        src: "media/video/promo-2025.mp4",
-        title: "2025 태일씨앤티 홍보영상",
-        description: "자동재생 없음 · 재생 시 소리가 나올 수 있습니다.",
-      },
-      {
-        kind: "video",
-        src: "media/video/company-intro.mp4",
-        title: "회사 소개 영상(최종본)",
-        description: "배포 폴더 원본 파일명 기준 복사본입니다.",
-      },
-      {
-        paragraphs: [
-          "공식 유튜브 채널이 별도로 운영되는 경우, 운영 URL을 본문에 링크로 추가할 수 있습니다.",
-        ],
-      },
-    ],
+    blocks: [],
   },
   "/pr/social": {
     title: "사회공헌",
-    lead: "지역사회와 함께하는 작은 실천을 이어갑니다.",
-    blocks: [
-      {
-        paragraphs: [
-          "청소년 장학·지역 봉사 등 파트너십 활동을 지속적으로 확대해 나가겠습니다. 최근 보도 사례는 홍보센터 News에서 확인할 수 있습니다.",
-        ],
-      },
-    ],
+    lead: "지역사회와 함께하는 나눔 활동을 이어갑니다.",
+    blocks: [],
   },
   "/pr/materials": {
     title: "홍보자료",
-    lead: "브로슈어·회사 소개 자료 요청 안내",
-    blocks: [
-      {
-        paragraphs: [
-          "PDF 브로슈어 및 회사 소개서는 담당자 이메일로 요청해 주시면 검토 후 제공드립니다.",
-        ],
-      },
-    ],
+    lead: "회사 홍보 게시물·브로슈어 등 자료를 안내합니다.",
+    blocks: [],
   },
   "/career/job-intro": {
     title: "직무소개",
-    lead: "직무별 역할과 요구 역량을 안내합니다.",
-    blocks: [
-      {
-        paragraphs: [
-          "현장 중심 직군(공무·품질·안전·구매 등)과 본부 지원 직군으로 구성되며, 직무별 상세 JD는 채용공고에 안내됩니다.",
-        ],
-      },
-    ],
+    lead:
+      "현장공사부터 경영지원까지 주요 직무를 안내합니다. 내용은 당사 홈페이지 직무소개를 바탕으로 정리하였으며, 지원 요건은 채용공고를 확인해 주세요.",
+    blocks: [],
   },
   "/career/hr-policy": {
     title: "인사제도",
     lead: "성과와 성장을 존중하는 인사 원칙",
-    blocks: [
-      {
-        paragraphs: [
-          "아래 이미지는 사내 배포 자료를 기반으로 한 시각 자료이며, 세부 규정 문구는 가안으로 정리된 안내입니다.",
-        ],
-      },
-      {
-        heading: "인재상 (가안 텍스트)",
-        paragraphs: [
-          "현장을 책임지는 전문가, 협력과 준법을 겸비한 구성원을 지향합니다.",
-        ],
-      },
-      {
-        kind: "media",
-        src: "media/career/talent-model.jpg",
-        alt: "인재상 안내 이미지",
-      },
-      {
-        heading: "보상제도 (가안 텍스트)",
-        paragraphs: ["성과·역할 기반 보상과 복리 일부는 내부 규정에 따릅니다."],
-      },
-      {
-        kind: "media",
-        src: "media/career/compensation.jpg",
-        alt: "보상제도 안내 이미지",
-      },
-      {
-        heading: "평가제도 (가안 텍스트)",
-        paragraphs: ["다면평가·목표관리 등 절차는 인사 규정에 따릅니다."],
-      },
-      {
-        kind: "media",
-        src: "media/career/evaluation.jpg",
-        alt: "평가제도 안내 이미지",
-      },
-      {
-        bullets: [
-          "역할 중심의 평가와 피드백",
-          "교육·자격 취득 지원",
-          "안전·준법 준수를 전제로 한 책임 경영",
-        ],
-      },
-    ],
+    blocks: [],
   },
   "/career/benefits": {
     title: "복리후생",
-    lead: "구성원의 안정과 건강을 지원합니다.",
-    blocks: [
-      {
-        paragraphs: [
-          "건강검진·경조사·명절 지원 등 기본 복지와 함께, 현장 특성을 고려한 실비 지원 항목을 운영합니다.",
-        ],
-      },
-    ],
-  },
-  "/career/guide": {
-    title: "채용가이드",
-    lead: "지원부터 입사까지의 절차를 안내합니다.",
-    blocks: [
-      {
-        bullets: [
-          "서류 전형 → 면접 전형 → 처우 협의 → 입사",
-          "직무별 필수 자격·우대 자격은 채용공고에 명시됩니다.",
-        ],
-      },
-    ],
+    lead: "",
+    blocks: [],
   },
   "/career/jobs": {
     title: "채용공고",
-    lead: "현재 모집 중인 포지션을 확인하세요.",
-    blocks: [
-      {
-        paragraphs: [
-          "실제 채용은 외부 채용 플랫폼 또는 회사 지정 채널을 통해 공지됩니다. 운영 담당자에게 문의해 주세요.",
-        ],
-      },
-    ],
+    lead: "",
+    blocks: [],
   },
   "/career/faq": {
     title: "채용FAQ",
-    lead: "자주 묻는 질문",
-    blocks: [
-      {
-        heading: "Q. 비수도권 거주자도 지원 가능한가요?",
-        paragraphs: [
-          "A. 직무별로 상이하며, 공고에 근무지·출장 범위가 안내됩니다.",
-        ],
-      },
-      {
-        heading: "Q. 경력 기준이 있나요?",
-        paragraphs: [
-          "A. 공고별로 요구하는 최소 경력이 다르며, 동등 역량은 포트폴리오로 검토할 수 있습니다.",
-        ],
-      },
-    ],
+    lead: "",
+    blocks: [],
   },
   "/esg": {
     title: "ESG경영",
@@ -401,24 +278,11 @@ export const pagesByPath: Record<string, PageContent> = {
   },
   "/legal/privacy": {
     title: "개인정보처리방침",
-    lead: "개인정보 보호를 위한 처리 방침(요약)",
-    blocks: [
-      {
-        paragraphs: [
-          "본 데모 사이트는 개인정보를 수집·저장하지 않습니다. 운영 시에는 법령에 따른 개인정보처리방침을 게시합니다.",
-        ],
-      },
-    ],
+    blocks: [],
   },
   "/legal/email-collection": {
     title: "이메일무단수집거부",
-    blocks: [
-      {
-        paragraphs: [
-          "본 웹사이트에 게시된 이메일 주소가 전자우편 수집 프로그램이나 그 밖의 기술적 장치를 이용하여 무단으로 수집되는 것을 거부하며, 위반 시 정보통신망법에 의해 처벌받을 수 있습니다.",
-        ],
-      },
-    ],
+    blocks: [],
   },
   "/site-map": {
     title: "사이트맵",

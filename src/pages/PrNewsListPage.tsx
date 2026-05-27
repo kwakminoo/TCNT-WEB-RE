@@ -1,36 +1,43 @@
-import { Link } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import { BreadcrumbNav } from "../components/BreadcrumbNav";
+import { PrNewsLayout } from "../components/page/PrNewsLayout";
 import { SubpageShell } from "../components/SubpageShell";
-import { newsArticles } from "../content/pr/newsItems";
+import { findParentGroup } from "../content/navData";
 
 export function PrNewsListPage() {
+  const { pathname } = useLocation();
+  const prNav = findParentGroup(pathname);
+
   return (
     <SubpageShell
+      className="page-shell--pr-news"
       intro={
         <>
           <BreadcrumbNav />
           <h1 id="page-title">News</h1>
-          <p className="lead">홍보·수주·행사 등 최신 소식입니다.</p>
         </>
       }
+      subNav={
+        prNav?.label === "홍보센터" ? (
+          <nav className="page-local-nav" aria-label="홍보센터 하위 메뉴">
+            <div className="container page-local-nav__inner">
+              {prNav.children.map((item) => (
+                <NavLink
+                  key={item.path}
+                  to={item.path}
+                  className={({ isActive }) =>
+                    `page-local-nav__link${isActive ? " page-local-nav__link--active" : ""}`
+                  }
+                >
+                  {item.label}
+                </NavLink>
+              ))}
+            </div>
+          </nav>
+        ) : undefined
+      }
     >
-      <div className="container">
-          <ul className="news-card-list" aria-label="뉴스 목록">
-            {newsArticles.map((a) => (
-              <li key={a.slug}>
-                <article className="news-card">
-                  <time className="news-card__date" dateTime={a.date}>
-                    {a.date}
-                  </time>
-                  <h2 className="news-card__title">
-                    <Link to={`/pr/news/${a.slug}`}>{a.title}</Link>
-                  </h2>
-                  <p className="news-card__summary">{a.summary}</p>
-                </article>
-              </li>
-            ))}
-          </ul>
-      </div>
+      <PrNewsLayout />
     </SubpageShell>
   );
 }

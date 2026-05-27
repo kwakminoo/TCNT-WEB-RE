@@ -56,7 +56,7 @@ const MARKER_LAYOUT_BY_MUNICIPALITY: Readonly<Record<string, LayoutTuning>> = {
   "32030": { centerShiftX: -48, centerShiftY: -6 }, // 강릉: 시각 중앙보다 우측 치우침 완화
   "31070": {
     centerShiftX: -40,
-    centerShiftY: 30,
+    centerShiftY: 10,
     spreadMul: 2.05,
     baseRMul: 1.38,
     maxSearchRMul: 1.75,

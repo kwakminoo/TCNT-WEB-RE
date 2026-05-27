@@ -1,0 +1,363 @@
+
+//페이지 상단 이미지 분기처리
+if(pageNumber=="1") {
+	$(".top_img").css("background","url(../images/company/top_image.jpg) #0b3776 center top no-repeat");
+	$(".top_img").animate({opacity:"1"},1000);
+} else if(pageNumber=="2") { 
+	$(".top_img").css("background","url(../images/order/top_image.jpg) #0b3776 center top no-repeat");
+} else if(pageNumber=="3") { 
+	$(".top_img").css("background","url(../images/tech/top_image.jpg) #0b3776 center top no-repeat");
+} else if(pageNumber=="4") { 
+	$(".top_img").css("background","url(../images/center/top_image.jpg) #0b3776 center top no-repeat");
+} else if(pageNumber=="5") { 
+	$(".top_img").css("background","url(../images/job/top_image.jpg) #0b3776 center top no-repeat");
+} else { 
+	$(".top_img").css("background","url(../images/top_image.jpg) #0b3776 center top no-repeat");
+}
+$(".top_img").animate({opacity:"1"},700);
+
+$(function(){	
+	
+var filter = "win16|win32|win64|mac|macintel"; 
+
+
+if ( navigator.platform ) { 
+	if ( filter.indexOf( navigator.platform.toLowerCase() ) < 0 ) { 
+	//mobile 접속 
+		
+
+	} else { 
+	//pc 접속 	
+		
+		//pc버전 펼침메뉴
+		$("#nav").hover(function(){
+			$("#lnb").animate({opacity:'toggle',height:'toggle'},"fast");
+		},
+		function(){
+			$("#lnb",this).slideUp("fast");
+		});
+
+		$("#lnb").hover(function(){
+			
+		},
+		function(){
+			$("#lnb").slideUp("fast");
+		});
+		
+		$("#lnb01").mouseover(function(){		
+			$(".nav-top li:eq(0) a").attr("style","color:#05ab20");
+			$(".nav-top li:eq(0) a").css("border-bottom","3px solid #05ab20");
+		}).mouseout(function(){
+			$(".nav-top li:eq(0) a").attr("style","color:#212121");		
+		});
+		$("#lnb02").mouseover(function(){		
+			$(".nav-top li:eq(1) a").attr("style","color:#05ab20");
+			$(".nav-top li:eq(1) a").css("border-bottom","3px solid #05ab20");
+		}).mouseout(function(){
+			$(".nav-top li:eq(1) a").attr("style","color:#212121");		
+		});
+		$("#lnb03").mouseover(function(){		
+			$(".nav-top li:eq(2) a").attr("style","color:#05ab20");
+			$(".nav-top li:eq(2) a").css("border-bottom","3px solid #05ab20");
+		}).mouseout(function(){
+			$(".nav-top li:eq(2) a").attr("style","color:#212121");		
+		});
+		$("#lnb04").mouseover(function(){		
+			$(".nav-top li:eq(3) a").attr("style","color:#05ab20");
+			$(".nav-top li:eq(3) a").css("border-bottom","3px solid #05ab20");
+		}).mouseout(function(){
+			$(".nav-top li:eq(3) a").attr("style","color:#212121");		
+		});
+		$("#lnb05").mouseover(function(){		
+			$(".nav-top li:eq(4) a").attr("style","color:#05ab20");
+			$(".nav-top li:eq(4) a").css("border-bottom","3px solid #05ab20");
+		}).mouseout(function(){
+			$(".nav-top li:eq(4) a").attr("style","color:#212121");		
+		});
+		
+	} 
+}
+
+	
+	//rollOver Change
+	$("img.rollover").mouseover(function(){		
+
+			$(this).attr("src",$(this).attr("src").replace(/^(.+)(\.[a-z]+)$/,"$1_on$2"));	
+		
+	}).mouseout(function(){		
+		
+		$(this).attr("src",$(this).attr("src").replace(/^(.+)_on(\.[a-z]+)$/,"$1$2"));
+			
+	}).each(function(){
+		$("<img>").attr("src",$(this).attr("src").replace(/^(.+)(\.[a-z]+)$/,"$1_on$2"));
+	});
+	
+	//Search button
+	$("#t_search").on("click",function(){		
+		$(".top_search").slideToggle("fast");	
+	});
+	
+	$("#t_search").on("mouseover",function(){		
+		$("#lnb").slideUp("fast");
+	});
+	
+	//mobile menu		
+	var wH = $(document).height();	
+	
+	$("#m_nav").height(wH+50);
+	$("#m_nav dd").css("display","none");
+	
+	$("#glayLayer").click(function(){
+		$(this).fadeOut(500);
+		$("#m_nav").animate({
+			marginLeft:"-300px"
+		},500,function(){
+			for(var i=1; i<=5; i++) {
+				$("#sub"+i+" span").text("+");	
+				$("#sub"+i).removeClass("m_tit_on");
+			}
+			$("#m_nav dd").css("display","none");
+			$("#sub"+pageNumber).addClass("m_tit_on");
+		});	
+		
+	});
+	
+	$("#m_top_menu").click(function(){
+		var dH = $(window).height();
+		
+		$("#m_nav").height(dH);				
+		$("#ssub"+pageNumber).css("display","block");	
+		$("#sub"+pageNumber).addClass("m_tit_on");
+		$("#ssub"+pageNumber+" ul li:nth-child("+subNumber+")").addClass("m_on");
+		$("#glayLayer").fadeIn(300);	
+		
+		$("#m_nav").animate({
+				marginLeft:"300px"
+		},300);	
+		
+	});
+		
+		
+	$("#btn_close").click(function(){
+		$("#glayLayer").fadeOut(500);	
+		$("#m_nav").animate({
+				marginLeft:"-300px"
+		},500,function(){
+			
+			for(var i=1; i<=5; i++) {
+				$("#sub"+i+" span").text("+");		
+				$("#sub"+i).removeClass("m_tit_on");	
+			}	
+			
+			$("#m_nav dd").css("display","none");
+			
+			
+		});	
+		
+	});
+	
+	// DropDown Menu	
+	$(".sub_title").click(function(){		
+		// alert($(this).attr("id"));	
+		var subName = $(this).attr("id");
+		var subNumber = subName.charAt(3); 
+		//alert(subNumber);
+		
+		for(var i=1; i<=5; i++) {
+			$("#sub"+i+" span").text("+");
+			$("#ssub"+i).slideUp("fast");
+			$("#sub"+i).removeClass("m_tit_on");
+		}
+		
+		$("#"+subName).addClass("m_tit_on");
+		$("#s"+subName+":not(:animated)").slideToggle("fast",function(){
+			if($("#ssub"+subNumber).css("display")=="block") {	
+				$("#sub"+subNumber+" span").text("-");
+			} else {
+				$("#sub"+subNumber+" span").text("+");
+			}	
+		});	
+			
+		
+	})		
+	
+
+});
+
+
+
+//
+function calcHeight() { 
+   document.getElementById('view').height=400;
+    var the_height= 
+    document.getElementById('view').contentWindow. 
+    document.body.scrollHeight;    
+    
+    document.getElementById('view').height= 
+    the_height+50; 
+} 
+
+//top scroll
+var scorllflag = true;
+
+function getSceneOffsetTop(scene) {
+	if($(scene).offset() == null) {
+		return 0;
+	} else {
+		return $(scene).offset().top;
+	}
+}
+ 
+$(function() {
+	$('.btn').click(function() {
+		scorllflag = false;
+		$('body, html').animate({ scrollTop: (getSceneOffsetTop($($(this).attr("href"))) - 90 ) }, "normal",setScrollFlagTrue);
+		$('.btn').removeClass("on");
+		$(this).addClass("on");
+
+		return false;		
+		
+	});	
+	
+	$('.home').click(function() {
+		scorllflag = false;
+		$('body, html').animate({ scrollTop: (getSceneOffsetTop($($(this).attr("href"))) - 0 ) }, "normal",setScrollFlagTrue);		
+			
+		return false;
+	});	
+});
+function setScrollFlagTrue() {
+	scorllflag = true;
+}
+
+//즐겨찾기 추가
+function addbookmark(){
+	
+	var url = "http://taeilcnt.co.kr";
+	var title = "태일CNT";
+	var browser = navigator.userAgent.toLowerCase();
+
+	//Mozilla, Firefox, Netcape
+	/*
+	if(window.sidebar){
+		window.sidebar.addPanel(title, url, "");
+		//alert('test');
+	}
+*/
+	//IE or Chrome
+	//else if(window.external){
+	if(window.external){
+		//IE
+		if(browser.indexOf('chrome')==-1){
+			window.external.AddFavorite(url, title);
+		}else {
+		//Chrome
+			alert('CTRL+D 또는 Command+D를 눌러 즐겨찾기에 추가해주세요.');
+		}
+	}
+	//Opera - automatically adds to sidebar if rel=sidebar in the tag
+	else if(window.opera && window.print){
+		return true;
+	}
+	//Konqueror
+	else if(browser.indexOf('konqueror')!=-1){
+		alert('CTRL+B를 눌러 즐겨차기에 추가해주세요.');
+	}
+	//safari
+	else if(browser.indexOf('webkit')!=-1){
+		alert('CTRL+B 또는 Commnad+B를 눌러 즐겨찾기에 추가해주세요.');
+	}else {
+		alert('사용하고 계시는 브라우져에서는 이 버튼으로 즐겨찾기를 추가할 수없습니다. 수동으로 링크를 추가해 주세요.');
+	}
+
+}
+
+
+//관련사이트
+$(".btn_family").click(function(){
+	$("#site").css("display","block");		
+});
+
+$("#site").hover(function(){					
+	
+}, function(){
+	$("#site").css("display","none");		
+	
+});	
+
+var winWidth = $(document).width();
+/*
+if(winWidth<=767) {
+	//mobile menu move
+	$('.sub_nav').sly({
+		horizontal: 1,
+		itemNav: 'centered', //basic
+		smart: 1,
+		mouseDragging: 1,
+		touchDragging: 1,
+		releaseSwing: 1,
+		startAt: subNumber-1,
+		speed: 300,
+		elasticBounds: 1,
+		dragHandle: 1,
+		dynamicHandle: 1
+	});
+}
+*/
+//mobile sub menu auto move
+if(pageNumber=="0" || $('.sub_nav').css("display")=="none") {
+	
+} else {
+	$('.sub_nav').sly({
+		horizontal: 1,
+		itemNav: 'centered', //basic
+		smart: 1,
+		mouseDragging: 1,
+		touchDragging: 1,
+		releaseSwing: 1,
+		startAt: subNumber-1,
+		speed: 300,
+		elasticBounds: 1,
+		dragHandle: 1,
+		dynamicHandle: 1
+	});
+}
+
+// Tooltip
+$('body').tooltip({
+	selector: "[data-toggle='tooltip']"
+});
+
+//팝업창
+function popupOpen(_url,_width,_height,_scbar,_left,_top,_center){
+	var sw=screen.availWidth;
+	var sh=screen.availHeight;
+	if(_center=="center") {
+	var px = (sw-_width)/2;
+	var py = (sh-_height)/2;
+	} else {
+		var px = _left;
+		var py = _top;
+	}
+	var popUrl = _url;
+	var popOption = "width="+_width+", height="+_height+", left="+px+", top="+py+", resizable=no, scrollbars="+_scbar+", status=no;"; 
+	window.open(popUrl,"",popOption);
+}
+
+
+// 카테고리 탭
+$(".cate_con:eq(0)").css("display","block"); //컨텐츠 박스 첫번재 보임처리
+$("#cate_box ul li").click(function(){	
+	
+	var num=$("#cate_box ul li").index(this);	
+	$(".cate_con").css("display","none");
+	
+	$("#cate_box ul li").removeClass("active");
+	$(this).addClass("active");
+	
+	$(".cate_con:eq(" + num + ")").css("display","block");
+	
+	
+});
+				
+

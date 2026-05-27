@@ -1,12 +1,18 @@
 import type { CSSProperties } from "react";
-import { useCallback, useMemo, useRef, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { NavLink, Navigate, useLocation } from "react-router-dom";
 import { BreadcrumbNav } from "../components/BreadcrumbNav";
 import { SubpageShell } from "../components/SubpageShell";
-import { EmptyState } from "../components/page/EmptyState";
 import { InnovationVisionLayout } from "../components/page/InnovationVisionLayout";
+import { BenefitsLayout } from "../components/page/BenefitsLayout";
+import { FaqLayout } from "../components/page/FaqLayout";
+import { HrPolicyLayout } from "../components/page/HrPolicyLayout";
+import { JobsLayout } from "../components/page/JobsLayout";
+import { JobIntroLayout } from "../components/page/JobIntroLayout";
 import { ClientsPartnersGrid } from "../components/page/ClientsPartnersGrid";
 import { LicensesGrid } from "../components/page/LicensesGrid";
+import { ContentSectionHead } from "../components/page/ContentSectionHead";
+import { GreetingLayout } from "../components/page/GreetingLayout";
 import { Timeline } from "../components/page/Timeline";
 import { VideoEmbed } from "../components/page/VideoEmbed";
 import { LICENSE_SECTIONS } from "../content/company/licensesData";
@@ -77,33 +83,6 @@ function defaultHistorySelectedYear(sections: PageBlockTimeline["sections"]): st
   const asc = sortHistorySectionsAsc(sections);
   return asc[asc.length - 1]?.year ?? sections[0]?.year ?? "";
 }
-
-const greetingScenes = [
-  {
-    eyebrow: "Challenge",
-    title: "새로운 이름으로 이어가는 전문건설의 도전",
-    image: "media/company/greeting.jpg",
-    imageAlt: "태일씨앤티 안전모를 든 임직원",
-    metric: "1994",
-    metricLabel: "창립",
-  },
-  {
-    eyebrow: "Quality & Safety",
-    title: "기본과 원칙 위에 세우는 품질·안전·상생",
-    image: "media/company/greeting-quality-safety.png",
-    imageAlt: "철근 콘크리트 현장에서 품질과 안전을 점검하는 임직원",
-    metric: "3대",
-    metricLabel: "사훈",
-  },
-  {
-    eyebrow: "Growth",
-    title: "태일인 DNA로 만드는 지속 가능한 성장",
-    image: "media/company/greeting-growth-dna.png",
-    imageAlt: "도시 건설 현장을 배경으로 도면을 검토하는 팀",
-    metric: "DNA",
-    metricLabel: "책임과 성장",
-  },
-];
 
 const philosophyValueCards = [
   {
@@ -205,6 +184,25 @@ function HistoryTimelineView({ block }: { block: PageBlockTimeline }) {
     dragRef.current = { active: false, pointerId: null, startX: 0, startScroll: 0 };
   }, []);
 
+  useEffect(() => {
+    scrollRef.current?.scrollTo({ left: 0 });
+  }, [selectedSection?.year]);
+
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+
+    const onWheel = (e: WheelEvent) => {
+      if (el.scrollWidth <= el.clientWidth) return;
+      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX)) return;
+      e.preventDefault();
+      el.scrollLeft += e.deltaY;
+    };
+
+    el.addEventListener("wheel", onWheel, { passive: false });
+    return () => el.removeEventListener("wheel", onWheel);
+  }, [selectedSection?.year]);
+
   if (!selectedSection) {
     return null;
   }
@@ -215,87 +213,88 @@ function HistoryTimelineView({ block }: { block: PageBlockTimeline }) {
     <div className="history-content">
       <div className="history-story">
         <div className="history-stage">
-          <div className="history-stage__media" aria-hidden="true" />
           <div className="history-stage__scrim" aria-hidden="true" />
 
           <p className="sr-only" aria-live="polite">
             {selectedSection.year}년 구간이 선택되었습니다.
           </p>
 
-          <header className="history-story__intro history-story__intro--on-dark">
-            <span>Company History</span>
-            <h2>현장에서 증명해 온 태일씨앤티의 발자취</h2>
-          </header>
+          <ContentSectionHead title="회사연혁" className="history-story__intro history-story__intro--on-light" />
 
-          <div
-            key={selectedSection.year}
-            className="history-horizontal-track"
-            role="region"
-            aria-label={`${selectedSection.year} 연혁`}
-            tabIndex={0}
-          >
+          <div className="history-stage__timeline-stack">
             <div
-              ref={scrollRef}
-              className="history-horizontal-scroll"
-              onPointerDown={onScrollPointerDown}
-              onPointerMove={onScrollPointerMove}
-              onPointerUp={onScrollPointerEnd}
-              onPointerCancel={onScrollPointerEnd}
+              key={selectedSection.year}
+              className="history-horizontal-track"
+              role="region"
+              aria-label={`${selectedSection.year} 연혁`}
+              tabIndex={0}
             >
-              <ol
-                className="history-horizontal-timeline"
-                style={
-                  {
-                    ["--history-cols"]: String(Math.max(1, selectedSection.lines.length)),
-                    gridTemplateColumns: `repeat(${Math.max(1, selectedSection.lines.length)}, minmax(7.75rem, 1fr))`,
-                  } as CSSProperties
-                }
+              <div
+                ref={scrollRef}
+                className="history-horizontal-scroll"
+                onPointerDown={onScrollPointerDown}
+                onPointerMove={onScrollPointerMove}
+                onPointerUp={onScrollPointerEnd}
+                onPointerCancel={onScrollPointerEnd}
               >
-                {selectedSection.lines.map((line, idx) => {
-                  const { date, body, category } = parseHistoryLineTriple(line);
-                  const above = idx % 2 === 0;
-                  return (
-                    <li
-                      key={`${selectedSection.year}-${idx}`}
-                      className={`history-horizontal-timeline__item${
-                        above ? " history-horizontal-timeline__item--above" : " history-horizontal-timeline__item--below"
-                      }`}
-                    >
-                      <div className="history-horizontal-timeline__copy">
-                        <span className="history-horizontal-timeline__date">{date}</span>
-                        <span className="history-horizontal-timeline__body">{body}</span>
-                        <span className="history-horizontal-timeline__cat">{category}</span>
-                      </div>
-                      <span className="history-horizontal-timeline__node" aria-hidden="true" />
-                    </li>
-                  );
-                })}
-              </ol>
+                <ol
+                  className="history-horizontal-timeline"
+                  style={
+                    {
+                      ["--history-cols"]: String(Math.max(1, selectedSection.lines.length)),
+                      gridTemplateColumns: `repeat(${Math.max(1, selectedSection.lines.length)}, minmax(var(--history-col-min), 1fr))`,
+                    } as CSSProperties
+                  }
+                >
+                  {selectedSection.lines.map((line, idx) => {
+                    const { date, body, category } = parseHistoryLineTriple(line);
+                    const above = idx % 2 === 0;
+                    return (
+                      <li
+                        key={`${selectedSection.year}-${idx}`}
+                        className={`history-horizontal-timeline__item${
+                          above ? " history-horizontal-timeline__item--above" : " history-horizontal-timeline__item--below"
+                        }`}
+                      >
+                        <div className="history-horizontal-timeline__copy">
+                          <span className="history-horizontal-timeline__date">{date}</span>
+                          <span className="history-horizontal-timeline__body">{body}</span>
+                          <span className="history-horizontal-timeline__cat">{category}</span>
+                        </div>
+                        <span className="history-horizontal-timeline__node" aria-hidden="true" />
+                      </li>
+                    );
+                  })}
+                </ol>
+              </div>
             </div>
-          </div>
 
-          <div className="history-chevron-rail">
-            <nav className="history-chevron-strip" aria-label="회사연혁 연도 선택">
-              {sortedSections.map((section, i) => {
-                const active = section.year === selectedSection.year;
-                const pos =
-                  n <= 1 ? "solo" : i === 0 ? "first" : i === n - 1 ? "last" : "mid";
-                return (
-                  <button
-                    key={section.year}
-                    type="button"
-                    className={`history-chevron-strip__btn history-chevron-strip__btn--${pos}${
-                      active ? " history-chevron-strip__btn--active" : ""
-                    }`}
-                    aria-pressed={active}
-                    onClick={() => setSelectedYear(section.year)}
-                  >
-                    <span className="history-chevron-strip__node" aria-hidden="true" />
-                    <span className="history-chevron-strip__label">{section.year}</span>
-                  </button>
-                );
-              })}
-            </nav>
+            <div className="history-chevron-rail">
+              <nav className="history-chevron-strip" aria-label="회사연혁 연도 선택">
+                <div className="history-chevron-strip__track" aria-hidden="true" />
+                <div className="history-chevron-strip__row">
+                  {sortedSections.map((section, i) => {
+                    const active = section.year === selectedSection.year;
+                    const pos =
+                      n <= 1 ? "solo" : i === 0 ? "first" : i === n - 1 ? "last" : "mid";
+                    return (
+                      <button
+                        key={section.year}
+                        type="button"
+                        className={`history-chevron-strip__btn history-chevron-strip__btn--${pos}${
+                          active ? " history-chevron-strip__btn--active" : ""
+                        }`}
+                        aria-pressed={active}
+                        onClick={() => setSelectedYear(section.year)}
+                      >
+                        <span className="history-chevron-strip__node" aria-hidden="true" />
+                        <span className="history-chevron-strip__label">{section.year}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+              </nav>
+            </div>
           </div>
         </div>
       </div>
@@ -310,7 +309,9 @@ function BlockView({ block, index }: { block: PageBlock; index: number }) {
   if (block.kind === "media") {
     return (
       <div key={index} className="content-block content-block--media">
-        {block.heading ? <h2>{block.heading}</h2> : null}
+        {block.heading ? (
+          <ContentSectionHead title={block.heading} className="content-block__head" />
+        ) : null}
         <figure className="media-figure">
           <img
             src={mediaSrc(block.src)}
@@ -339,7 +340,9 @@ function BlockView({ block, index }: { block: PageBlock; index: number }) {
   if (block.kind === "cta") {
     return (
       <div key={index} className="content-block content-block--cta">
-        {block.heading ? <h2>{block.heading}</h2> : null}
+        {block.heading ? (
+          <ContentSectionHead title={block.heading} className="content-block__head" />
+        ) : null}
         <ul className="cta-link-list">
           {block.links.map((link) => (
             <li key={link.href + link.label}>
@@ -359,7 +362,9 @@ function BlockView({ block, index }: { block: PageBlock; index: number }) {
 
   return (
     <div key={index} className="content-block">
-      {block.heading ? <h2>{block.heading}</h2> : null}
+      {block.heading ? (
+        <ContentSectionHead title={block.heading} className="content-block__head" />
+      ) : null}
       {(block.paragraphs ?? []).map((p, j) => (
         <p key={j}>{p}</p>
       ))}
@@ -376,6 +381,9 @@ function BlockView({ block, index }: { block: PageBlock; index: number }) {
 
 export function StaticPage() {
   const { pathname } = useLocation();
+  if (pathname === "/career/guide" || pathname === "/career/guide/") {
+    return <Navigate to="/career/job-intro" replace />;
+  }
   const page = pagesByPath[pathname];
   if (!page) {
     return <Navigate to="/" replace />;
@@ -387,6 +395,11 @@ export function StaticPage() {
   const isOrganizationPage = pathname === "/about/organization";
   const isLicensesPage = pathname === "/about/licenses";
   const isClientsPage = pathname === "/about/clients";
+  const isJobIntroPage = pathname === "/career/job-intro";
+  const isHrPolicyPage = pathname === "/career/hr-policy";
+  const isBenefitsPage = pathname === "/career/benefits";
+  const isJobsPage = pathname === "/career/jobs";
+  const isFaqPage = pathname === "/career/faq";
   const greetingIntroBlock = isGreetingPage ? page.blocks.find(isProseBlock) : undefined;
   const greetingSignatureBlock = isGreetingPage
     ? page.blocks.find(
@@ -396,7 +409,11 @@ export function StaticPage() {
     : undefined;
   const companyNav = findParentGroup(pathname);
   const localNavGroup =
-    companyNav?.label === "회사소개" || companyNav?.label === "기술혁신" ? companyNav : undefined;
+    companyNav?.label === "회사소개" ||
+    companyNav?.label === "기술혁신" ||
+    companyNav?.label === "인재채용"
+      ? companyNav
+      : undefined;
 
   return (
     <SubpageShell
@@ -415,7 +432,17 @@ export function StaticPage() {
                     ? "page-shell--licenses"
                     : isClientsPage
                       ? "page-shell--clients"
-                      : undefined
+                      : isJobIntroPage
+                        ? "page-shell--job-intro"
+                        : isHrPolicyPage
+                          ? "page-shell--hr-policy"
+                          : isBenefitsPage
+                            ? "page-shell--benefits"
+                            : isJobsPage
+                              ? "page-shell--jobs"
+                              : isFaqPage
+                                ? "page-shell--faq"
+                                : undefined
       }
       intro={
         <>
@@ -427,6 +454,11 @@ export function StaticPage() {
           !isPhilosophyPage &&
           !isLicensesPage &&
           !isClientsPage &&
+          !isJobIntroPage &&
+          !isHrPolicyPage &&
+          !isBenefitsPage &&
+          !isJobsPage &&
+          !isFaqPage &&
           page.lead ? (
             <p className="lead">{page.lead}</p>
           ) : null}
@@ -453,62 +485,12 @@ export function StaticPage() {
       }
     >
       {isGreetingPage ? (
-        <div className="greeting-content">
-          <div className="container greeting-story">
-            <div className="greeting-story__intro">
-              <span>CEO Message</span>
-              <h2>기본과 원칙으로 내일의 <br></br>현장을 세웁니다</h2>
-            </div>
-            <article className="greeting-content__article" aria-label="대표 인사말">
-              {(greetingIntroBlock?.paragraphs ?? []).map((paragraph, idx) => {
-                const scene = greetingScenes[idx] ?? greetingScenes[greetingScenes.length - 1];
-                return (
-                  <section className="greeting-scene" key={scene.title}>
-                    <div className="greeting-scene__copy">
-                      <span className="greeting-scene__eyebrow">{scene.eyebrow}</span>
-                      <h3>{scene.title}</h3>
-                      <p>{paragraph}</p>
-                    </div>
-                    <figure className="greeting-scene__visual">
-                      <img
-                        src={mediaSrc(scene.image)}
-                        alt={scene.imageAlt}
-                        loading={idx === 0 ? "eager" : "lazy"}
-                        decoding="async"
-                      />
-                      <figcaption>
-                        <strong>{scene.metric}</strong>
-                        <span>{scene.metricLabel}</span>
-                      </figcaption>
-                    </figure>
-                  </section>
-                );
-              })}
-              {greetingSignatureBlock ? (
-                <footer className="greeting-story__signature">
-                  <span>TAEIL C&T</span>
-                  <figure>
-                    <img
-                      src={mediaSrc(greetingSignatureBlock.src)}
-                      alt={greetingSignatureBlock.alt}
-                      width={greetingSignatureBlock.width}
-                      height={greetingSignatureBlock.height}
-                      loading="lazy"
-                      decoding="async"
-                    />
-                  </figure>
-                </footer>
-              ) : null}
-            </article>
-          </div>
-        </div>
+        <GreetingLayout introBlock={greetingIntroBlock} signatureBlock={greetingSignatureBlock} />
       ) : isPhilosophyPage ? (
         <div className="philosophy-content">
           <div className="philosophy-vision-intro">
             <header className="philosophy-vision-intro__head">
-              <h2 id="philosophy-vision-heading" className="philosophy-vision-intro__title">
-                비전
-              </h2>
+              <ContentSectionHead id="philosophy-vision-heading" title="비전" />
             </header>
             <section className="philosophy-vision-band" aria-labelledby="philosophy-vision-heading">
               <p className="philosophy-vision-text">
@@ -519,9 +501,7 @@ export function StaticPage() {
 
           <section className="philosophy-values-showcase" aria-labelledby="philosophy-values-heading">
             <header className="philosophy-values-showcase__head">
-              <h2 id="philosophy-values-heading" className="philosophy-values-showcase__title">
-                핵심가치
-              </h2>
+              <ContentSectionHead id="philosophy-values-heading" title="핵심가치" />
             </header>
             <div className="philosophy-values-showcase__rail">
               <ul className="philosophy-value-panels">
@@ -556,9 +536,7 @@ export function StaticPage() {
 
           <section className="philosophy-slogan-showcase" aria-labelledby="philosophy-slogan-heading">
             <header className="philosophy-slogan-showcase__head">
-              <h2 id="philosophy-slogan-heading" className="philosophy-slogan-showcase__title">
-                슬로건
-              </h2>
+              <ContentSectionHead id="philosophy-slogan-heading" title="슬로건" />
             </header>
             <div className="philosophy-slogan-board">
               <ul className="philosophy-slogan-stack">
@@ -611,10 +589,7 @@ export function StaticPage() {
           <div className="clients-intro">
             <div className="container">
               <header className="clients-intro__head">
-                <span className="clients-intro__eyebrow">주요 파트너십</span>
-                <h2 id="clients-intro-heading" className="clients-intro__title">
-                  주요 협력 시공사
-                </h2>
+                <ContentSectionHead id="clients-intro-heading" title="주요 협력 시공사" />
               </header>
               <section className="clients-intro__band" aria-labelledby="clients-intro-heading">
                 <p className="clients-intro__text">{page.lead}</p>
@@ -624,19 +599,24 @@ export function StaticPage() {
           <ClientsPartnersGrid />
         </div>
       ) : isLicensesPage ? (
-        <LicensesGrid sections={LICENSE_SECTIONS} lead={page.lead ?? ""} />
+        <LicensesGrid sections={LICENSE_SECTIONS} />
       ) : isInnovationVisionPage ? (
         <InnovationVisionLayout blocks={page.blocks} />
+      ) : isJobIntroPage ? (
+        <JobIntroLayout />
+      ) : isHrPolicyPage ? (
+        <HrPolicyLayout />
+      ) : isBenefitsPage ? (
+        <BenefitsLayout />
+      ) : isJobsPage ? (
+        <JobsLayout />
+      ) : isFaqPage ? (
+        <FaqLayout />
       ) : (
         <div className="container prose prose--blocks">
-          {pathname === "/innovation/news" ? (
-            <EmptyState
-              title="등록된 기술혁신 News가 없습니다"
-              description="레거시 tech_list.jsp 연동 또는 CMS에 과제·현장 사례를 등록하면 이 영역에 목록이 표시됩니다."
-            />
-          ) : (
-            page.blocks.map((b, i) => <BlockView key={i} block={b} index={i} />)
-          )}
+          {page.blocks.map((b, i) => (
+            <BlockView key={i} block={b} index={i} />
+          ))}
         </div>
       )}
     </SubpageShell>

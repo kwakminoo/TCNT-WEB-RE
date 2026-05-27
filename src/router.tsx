@@ -11,6 +11,17 @@ import { ProjectPortfolioPage } from "./pages/ProjectPortfolioPage";
 import { ProjectOrderDetailPage } from "./pages/ProjectOrderDetailPage";
 import { PrNewsListPage } from "./pages/PrNewsListPage";
 import { PrNewsDetailPage } from "./pages/PrNewsDetailPage";
+import { YoutubePage } from "./pages/YoutubePage";
+import { SocialContributionListPage } from "./pages/SocialContributionListPage";
+import { SocialContributionDetailPage } from "./pages/SocialContributionDetailPage";
+import { PrMaterialsListPage } from "./pages/PrMaterialsListPage";
+import { InnovationNewsListPage } from "./pages/InnovationNewsListPage";
+import { InnovationNewsDetailPage } from "./pages/InnovationNewsDetailPage";
+import { EsgPage } from "./pages/EsgPage";
+import { CareerJobDetailPage } from "./pages/CareerJobDetailPage";
+import { LocationPage } from "./pages/LocationPage";
+import { PrivacyPolicyPage } from "./pages/PrivacyPolicyPage";
+import { EmailCollectionPage } from "./pages/EmailCollectionPage";
 
 function appBasename(): string {
   const b = import.meta.env.BASE_URL ?? "/";
@@ -23,6 +34,14 @@ const STATIC_ROUTE_EXCLUDE = new Set([
   "/business/project-map",
   "/business/orders",
   "/pr/news",
+  "/pr/youtube",
+  "/pr/social",
+  "/pr/materials",
+  "/innovation/news",
+  "/esg",
+  "/about/location",
+  "/legal/privacy",
+  "/legal/email-collection",
 ]);
 
 const staticRoutes = Object.keys(pagesByPath)
@@ -45,7 +64,18 @@ export const router = createBrowserRouter(
         { path: "business/orders/:slug", element: <ProjectOrderDetailPage /> },
         { path: "pr/news", element: <PrNewsListPage /> },
         { path: "pr/news/:slug", element: <PrNewsDetailPage /> },
+        { path: "pr/youtube", element: <YoutubePage /> },
+        { path: "pr/social", element: <SocialContributionListPage /> },
+        { path: "pr/social/:slug", element: <SocialContributionDetailPage /> },
+        { path: "pr/materials", element: <PrMaterialsListPage /> },
+        { path: "innovation/news", element: <InnovationNewsListPage /> },
+        { path: "innovation/news/:id", element: <InnovationNewsDetailPage /> },
+        { path: "esg", element: <EsgPage /> },
+        { path: "career/jobs/:id", element: <CareerJobDetailPage /> },
         { path: "business/project-map", element: <ProjectMapPage /> },
+        { path: "about/location", element: <LocationPage /> },
+        { path: "legal/privacy", element: <PrivacyPolicyPage /> },
+        { path: "legal/email-collection", element: <EmailCollectionPage /> },
         ...staticRoutes,
         { path: "*", element: <NotFound /> },
       ],

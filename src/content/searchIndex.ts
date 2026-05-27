@@ -1,6 +1,9 @@
 import { standalonePageTitles } from "./breadcrumbResolve";
 import { allNavLinks } from "./navData";
-import { newsArticles } from "./pr/newsItems";
+import { careerJobItems } from "./career/careerJobs";
+import { innovationNewsItems } from "./innovation/innovationNews";
+import { prNewsItems } from "./pr/prNews";
+import { socialContributionItems } from "./pr/socialContribution";
 import { PARTNER_LOGOS } from "./company/partnersData";
 import { pagesByPath } from "./pagesData";
 import { portfolioProjects } from "./projects/portfolioData";
@@ -72,8 +75,26 @@ const fromProjects: SearchDocument[] = portfolioProjects.map((p) => ({
   text: `${p.name} ${p.client ?? ""} ${p.contractor ?? ""} ${p.period ?? ""} ${p.status ?? ""}`.toLowerCase(),
 }));
 
-const fromNews: SearchDocument[] = newsArticles.map((a) => ({
-  path: `/pr/news/${a.slug}`,
+const fromNews: SearchDocument[] = prNewsItems.map((a) => ({
+  path: a.link_url,
+  title: a.title,
+  text: `${a.title} ${a.summary} ${a.body.join(" ")}`.toLowerCase(),
+}));
+
+const fromInnovationNews: SearchDocument[] = innovationNewsItems.map((a) => ({
+  path: a.link_url,
+  title: a.title,
+  text: `${a.title} ${a.content}`.toLowerCase(),
+}));
+
+const fromCareerJobs: SearchDocument[] = careerJobItems.map((a) => ({
+  path: a.link_url,
+  title: a.title,
+  text: `${a.title} ${a.summary} ${a.department} ${a.body.join(" ")}`.toLowerCase(),
+}));
+
+const fromSocial: SearchDocument[] = socialContributionItems.map((a) => ({
+  path: a.link_url,
   title: a.title,
   text: `${a.title} ${a.summary} ${a.body.join(" ")}`.toLowerCase(),
 }));
@@ -83,6 +104,9 @@ export const searchDocuments: SearchDocument[] = [
   ...fromPagesOnly,
   ...fromProjects,
   ...fromNews,
+  ...fromInnovationNews,
+  ...fromCareerJobs,
+  ...fromSocial,
 ];
 
 export function searchPages(query: string): SearchDocument[] {

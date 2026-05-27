@@ -1,0 +1,29 @@
+[
+  {
+    "id": "smart-survey-digital-twin",
+    "title": "스마트 측량·디지털 트윈 기반 현장 품질관리 시범 적용",
+    "date": "2025-11-18",
+    "category": "construction",
+    "content": "건설 현장에 드론 측량과 3D 스캔 데이터를 결합한 디지털 트윈 모델을 도입해 시공 오차를 사전에 검증하는 시범 과제를 수행했습니다. 측량·시공·품질 부서가 동일한 좌표계 데이터를 공유함으로써 재작업을 줄이고, 안전·품질 점검 주기를 단축하는 효과를 확인했습니다.",
+    "image_url": "media/company/innovation-stories/story-panel-tech.jpg",
+    "link_url": "/innovation/news/smart-survey-digital-twin"
+  },
+  {
+    "id": "modular-qc-process",
+    "title": "모듈러 품질검수 공정 표준화 및 시스템 연동",
+    "date": "2025-09-04",
+    "category": "construction",
+    "content": "주요 공종별 품질검수 체크리스트를 모듈화하고, 현장 모바일 점검 결과가 본사 품질관리 시스템에 실시간 반영되도록 연동했습니다. 발주처 보고 자료 작성 시간을 단축하고, 동일 유형 현장 간 우수 사례를 빠르게 공유할 수 있는 기반을 마련했습니다.",
+    "image_url": "media/company/innovation-stories/story-panel-system.jpg",
+    "link_url": "/innovation/news/modular-qc-process"
+  },
+  {
+    "id": "green-port-expansion-rnd",
+    "title": "친환경 항만·복합개발 분야 신사업 기술 발굴 협력",
+    "date": "2025-06-21",
+    "category": "other",
+    "content": "계열사 및 협력 연구기관과 함께 친환경 항만·복합개발 분야의 신기술·신사업을 발굴하는 과제를 추진했습니다. 에너지 효율형 부지 조성, 스마트 물류 인프라 등 중장기 성장 동력 확보를 위한 기술 로드맵을 수립하고 파일럿 검토를 시작했습니다.",
+    "image_url": "media/company/innovation-stories/story-panel-expansion.jpg",
+    "link_url": "/innovation/news/green-port-expansion-rnd"
+  }
+]

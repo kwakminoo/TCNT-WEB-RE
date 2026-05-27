@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import type { LicenseGridItem, LicenseSection } from "../../content/company/licensesData";
+import { ContentSectionHead } from "./ContentSectionHead";
 
 const assetBase = import.meta.env.BASE_URL;
 
@@ -9,10 +10,9 @@ function assetUrl(src: string): string {
 
 type Props = {
   sections: LicenseSection[];
-  lead: string;
 };
 
-export function LicensesGrid({ sections, lead }: Props) {
+export function LicensesGrid({ sections }: Props) {
   const [active, setActive] = useState<LicenseGridItem | null>(null);
   const closeBtnRef = useRef<HTMLButtonElement>(null);
 
@@ -34,20 +34,10 @@ export function LicensesGrid({ sections, lead }: Props) {
   return (
     <div className="licenses-content">
       <div className="container licenses-story">
-        <div className="licenses-story__intro">
-          <span>Licenses &amp; Certifications</span>
-          <h2>
-            업·면허와 인증을
-            <br />
-            투명하게 안내합니다
-          </h2>
-          <p>{lead}</p>
-        </div>
-
         {sections.map((section, si) => (
           <section key={section.heading} className="licenses-section" aria-labelledby={`lic-sec-${si}`}>
             <header className="licenses-section__head">
-              <h3 id={`lic-sec-${si}`}>{section.heading}</h3>
+              <ContentSectionHead id={`lic-sec-${si}`} title={section.heading} />
             </header>
             <ul className="licenses-grid">
               {section.items.map((item) => (

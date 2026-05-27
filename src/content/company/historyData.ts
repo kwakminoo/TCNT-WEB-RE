@@ -174,7 +174,7 @@ export const COMPANY_HISTORY_TIMELINE: PageBlockTimeline = {
       ],
     },
     {
-      year: "1994~2012(발췌)",
+      year: "1994~2012",
       lines: [
         "94.04 지인개발 설립",
         "99.02 대한주택공사 형틀부분 최우수상",

@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Link, NavLink, useLocation, useSearchParams } from "react-router-dom";
 import { BreadcrumbNav } from "../components/BreadcrumbNav";
 import { SubpageShell } from "../components/SubpageShell";
+import { ContentSectionHead } from "../components/page/ContentSectionHead";
 import { Pagination } from "../components/page/Pagination";
 import { findParentGroup } from "../content/navData";
 import {
@@ -109,11 +110,16 @@ export function ProjectPortfolioPage() {
         ) : undefined
       }
     >
-      <div className="container">
-        <div className="orders-legacy-filter" role="group" aria-labelledby="orders-filter-legend">
-          <div id="orders-filter-legend" className="orders-legacy-filter__label">
-            유형
+      <div className="orders-page">
+        <div className="container orders-page__inner">
+          <div className="orders-page__head-wrap">
+            <ContentSectionHead
+              id="orders-list-heading"
+              title="프로젝트 목록"
+              className="orders-page__head"
+            />
           </div>
+        <div className="orders-legacy-filter" role="group" aria-label="유형 필터">
           <div className="orders-legacy-filter__tabs">
             {CATEGORY_KEYS.map((key) => (
               <button
@@ -143,6 +149,7 @@ export function ProjectPortfolioPage() {
           onPageChange={(n) => setPage(n)}
           idBase="portfolio"
         />
+        </div>
       </div>
     </SubpageShell>
   );

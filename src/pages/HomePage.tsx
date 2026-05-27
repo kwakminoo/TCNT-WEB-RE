@@ -3,17 +3,7 @@ import { Link } from "react-router-dom";
 import { MainBanner } from "../components/MainBanner";
 import { ProjectMapSection } from "../components/ProjectMapSection";
 import { homeIntro, homeMasterpieces } from "../content/homeData";
-
-type FeaturedNews = {
-  id: string;
-  category: string;
-  title: string;
-  date: string;
-  content: string;
-  imageSrc: string;
-};
-
-type NewsCategory = FeaturedNews["category"];
+import { getLatestPrNewsForHome } from "../content/pr/prNews";
 
 type CompanyOverviewItem = {
   id: string;
@@ -22,41 +12,7 @@ type CompanyOverviewItem = {
   to: string;
 };
 
-const featuredNews: FeaturedNews[] = [
-  {
-    id: "n1",
-    category: "수상",
-    title: "삼성물산 공사수행 역량평가 수행우수사 선정, 최우수상 수상",
-    date: "2026.03.23",
-    content:
-      "태일씨앤티는 2026년 03월 23일 삼성물산(주) 건설부문으로부터 '25년 공사수행 역량평가 수행우수사'로 선정되어 최우수상을 수여 받았습니다.",
-    imageSrc: "/news/20260325160936363099.jpg",
-  },
-  {
-    id: "n2",
-    category: "보도자료",
-    title: "한국청소년육성회 금천지구회 모범청소년 장학금 수여 행사 소식",
-    date: "2025.12.16",
-    content:
-      "태경이노베이션에서 한국청소년육성회 금천지구회 모범청소년 장학금 수여 행사를 진행 하였습니다. 일시 : 2025년 12월 16일, 장소 : 금천구청, 수여식 참석 : 태경이노베이션 최정훈 대표.",
-    imageSrc: "/news/20251217142614056250.jpg",
-  },
-  {
-    id: "n3",
-    category: "행사소식",
-    title: "김경수 대표님 한국산업단지경영자연합회 서울 6대 회장 취임",
-    date: "2025.12.09",
-    content:
-      "김경수 대표님께서 12월 9일 한국산업단지경영자연합회서울(이하 KIBA서울) 제6대 회장에 취임하셨습니다. 김 회장님은 이날 오후 6시 G밸리에 위치한 L컨벤션에서 취임식을 갖고 본격 활동을 시작하셨습니다. 김 회장님은 취임식에서 KIBA서울 제6대 회장 취임에 감사 인사를 전하며, G밸리와 산업 생태계에 헌신하는 모든 분들께 감사의 뜻을 밝혔습니다. AI·디지털 전환·ESG 등 빠르게 변하는 환경 속에서 기업 애로 해결 컨트롤타워 강화, 기업 간 협업 생태계 구축, 정부·지자체 지원제도 활용도 제고를 핵심 운영 방향으로 제시하셨습니다.",
-    imageSrc: "/news/20251210093618603107.jpg",
-  },
-];
-
-const categoryLabelMap: Record<NewsCategory, string> = {
-  수상: "수상",
-  보도자료: "보도자료",
-  행사소식: "행사소식",
-};
+const featuredNews = getLatestPrNewsForHome(3);
 
 const companyOverviewItems: CompanyOverviewItem[] = [
   {
@@ -80,7 +36,7 @@ const companyOverviewItems: CompanyOverviewItem[] = [
   {
     id: "job-intro",
     title: "직무소개",
-    description: "직무별 주요 업무와 요구 역량을 소개합니다.",
+    description: "현장·본사·경영지원 직무를 카드로 안내하고, 업무개괄·필요역량·Vision을 모달에서 확인할 수 있습니다.",
     to: "/career/job-intro",
   },
 ];
@@ -95,14 +51,18 @@ export function HomePage() {
   const [activeHighlightIndex, setActiveHighlightIndex] = useState(0);
   const activeNews = featuredNews[activeNewsIndex] ?? featuredNews[0];
   const activeHighlight = homeMasterpieces[activeHighlightIndex] ?? homeMasterpieces[0];
-  const preview = useMemo(() => truncateNews(activeNews.content), [activeNews.content]);
+  const preview = useMemo(
+    () => (activeNews ? truncateNews(activeNews.content) : { text: "", truncated: false }),
+    [activeNews],
+  );
 
   useEffect(() => {
+    if (featuredNews.length <= 1) return;
     const intervalId = window.setInterval(() => {
       setActiveNewsIndex((prev) => (prev + 1) % featuredNews.length);
     }, 5000);
     return () => window.clearInterval(intervalId);
-  }, []);
+  }, [featuredNews.length]);
 
   useEffect(() => {
     if (homeMasterpieces.length <= 1) return;
@@ -115,6 +75,7 @@ export function HomePage() {
   return (
     <>
       <MainBanner />
+      {activeNews ? (
       <section className="page-body home-news-showcase home-scroll-pane home-news-pane">
         <p className="home-news-eyebrow">NEWS</p>
         <div className="home-news-shell">
@@ -124,7 +85,7 @@ export function HomePage() {
                 <div className="home-news-article__top">
                   <div className="home-news-article__meta-row">
                     <span className={`home-news-badge home-news-badge--${activeNews.category}`}>
-                      {categoryLabelMap[activeNews.category]}
+                      {activeNews.category}
                     </span>
                     <p className="home-news-article__date">{activeNews.date}</p>
                   </div>
@@ -133,7 +94,7 @@ export function HomePage() {
                 <div className="home-news-article__bottom">
                   <p className="home-news-article__summary">{preview.text}</p>
                   <div className="home-news-article__actions">
-                    <Link className="home-news-more-link" to="/pr/news">
+                    <Link className="home-news-more-link" to={activeNews.linkUrl}>
                       + 더보기
                     </Link>
                   </div>
@@ -147,6 +108,7 @@ export function HomePage() {
           </div>
         </div>
       </section>
+      ) : null}
 
       <section className="page-body home-masterpiece home-scroll-pane home-masterpiece-pane">
         <div
@@ -223,7 +185,7 @@ export function HomePage() {
       </section>
 
       <section className="page-body home-project-map home-scroll-pane home-project-map-pane">
-        <ProjectMapSection />
+        <ProjectMapSection showSectionHeader={false} />
       </section>
 
       <section className="page-body home-section-company home-scroll-pane home-company-pane">

@@ -45,7 +45,6 @@ export const navEntries: NavEntry[] = [
     children: [
       { label: "직무소개", path: "/career/job-intro" },
       { label: "인사제도", path: "/career/hr-policy" },
-      { label: "채용가이드", path: "/career/guide" },
       { label: "복리후생", path: "/career/benefits" },
       { label: "채용공고", path: "/career/jobs" },
       { label: "채용FAQ", path: "/career/faq" },

@@ -1,11 +1,14 @@
 import type { PageBlockTimeline } from "../../content/types";
+import { ContentSectionHead } from "./ContentSectionHead";
 
 type Props = { block: PageBlockTimeline };
 
 export function Timeline({ block }: Props) {
   return (
     <div className="timeline">
-      {block.heading ? <h2 className="timeline__intro-heading">{block.heading}</h2> : null}
+      {block.heading ? (
+        <ContentSectionHead title={block.heading} className="timeline__intro-heading" />
+      ) : null}
       <ol className="timeline__list" aria-label="연혁 타임라인">
         {block.sections.map((sec) => (
           <li key={sec.year} className="timeline__item">

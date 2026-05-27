@@ -59,6 +59,14 @@ export function Header() {
     clearDesktopNavCloseTimer();
     setOpenDesktopGroup(null);
     setDesktopNavActive(false);
+    setHeaderHidden(false);
+    prevScrollYRef.current = 0;
+    userScrollIntentRef.current = false;
+    userScrollDirectionRef.current = null;
+    if (userScrollIntentTimerRef.current !== null) {
+      window.clearTimeout(userScrollIntentTimerRef.current);
+      userScrollIntentTimerRef.current = null;
+    }
   }, [location.pathname]);
 
   useEffect(() => () => clearDesktopNavCloseTimer(), []);
@@ -172,23 +180,12 @@ export function Header() {
       const delta = currentY - prevY;
       if (Math.abs(delta) < 8) return;
 
-      // 사용자가 아래로 스크롤 중인데(의도: down) 슬라이드 전환으로 scrollY가 잠깐 튀면
-      // 이때 상단바가 “보이기”로 토글되지 않도록 방향이 다를 경우 상태 변경을 막습니다.
-      if (userScrollDirectionRef.current === "down" && delta < 0) {
-        prevScrollYRef.current = currentY;
-        return;
-      }
-      if (userScrollDirectionRef.current === "up" && delta > 0) {
-        prevScrollYRef.current = currentY;
-        return;
-      }
-
       if (currentY <= 32) {
         setHeaderHidden(false);
-      } else if (delta > 0) {
-        setHeaderHidden(true);
-      } else {
+      } else if (delta < 0) {
         setHeaderHidden(false);
+      } else if (delta > 0 && userScrollDirectionRef.current !== "up") {
+        setHeaderHidden(true);
       }
       prevScrollYRef.current = currentY;
     };
